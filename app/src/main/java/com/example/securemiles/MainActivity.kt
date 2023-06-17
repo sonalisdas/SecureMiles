@@ -12,16 +12,24 @@ class MainActivity : AppCompatActivity() {
         var bottomBar = findViewById<BottomNavigationView>(R.id.bottom_bar)
         bottomBar.setOnItemSelectedListener {
 
-            if(it.itemId==R.id.nav_safety_check){
-                inflateFragment(GuardFragment.newInstance())
-            }
-            else if (it.itemId==R.id.nav_home){
-                inflateHomeFragment(HomeFragment.newInstance())
+            when (it.itemId) {
+                R.id.nav_safety_check -> {
+                    inflateFragment(GuardFragment.newInstance())
+                }
+                R.id.nav_home -> {
+                    inflateHomeFragment(HomeFragment.newInstance())
+                }
+                R.id.nav_dashboard -> {
+                    inflateFragment(DashboardFragment.newInstance())
+                }
+                R.id.nav_profile -> {
+                    inflateFragment(ProfileFragment.newInstance())
+                }
             }
 
             true
         }
-
+        bottomBar.selectedItemId = R.id.nav_home
     }
 
     private fun inflateHomeFragment(newInstance: HomeFragment) {
@@ -36,5 +44,20 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
 
     }
+
+    private fun inflateFragment(newInstance: DashboardFragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, newInstance)
+        transaction.commit()
+
+    }
+
+    private fun inflateFragment(newInstance: ProfileFragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, newInstance)
+        transaction.commit()
+
+    }
+
 
 }

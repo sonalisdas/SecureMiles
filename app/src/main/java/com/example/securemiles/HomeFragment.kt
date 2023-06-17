@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,6 +18,22 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val listMembers = listOf<MemberModel>(
+            MemberModel("Sonali"),
+            MemberModel("Appa"),
+            MemberModel("Disha"),
+        )
+
+        val adapter = MemberAdapter(listMembers)
+
+        val recycler = requireView().findViewById<RecyclerView>(R.id.recycler_member)
+        recycler.layoutManager = LinearLayoutManager(requireContext())
+        recycler.adapter = adapter
     }
 
     companion object {
